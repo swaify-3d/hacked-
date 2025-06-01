@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mr. Hacker Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Extra style for command input */
+    #command-line {
+      width: 100%;
+      padding: 8px;
+      background: black;
+      border: none;
+      color: #33ff33;
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+      outline: none;
+      box-sizing: border-box;
+      margin-top: 15px;
+      border-top: 1px solid #33ff33;
+    }
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+    .blinking {
+      color: red;
+      font-weight: bold;
+      animation: blink 1s infinite;
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <h1>>_ Welcome to My Portfolio</h1>
+    <pre id="terminal-output">
+┌──[ Welcome ]
+│ Type 'help' to see available commands
+└──────────────────────────────────────
+    </pre>
+
+    <input
+      type="text"
+      id="command-line"
+      autocomplete="off"
+      placeholder="Type a command and press Enter..."
+    />
+
+    <button onclick="goHome()" style="margin-top: 15px;">Back to Home</button>
+  </div>
+
+  <script>
+    const output = document.getElementById('terminal-output');
+    const input = document.getElementById('command-line');
+
+    const aboutText = `
+┌──[ About Me ]
+│ Name: Swaify
+│ Role: 3D modeler and server enthusiast and game creator
+│ Skills: Roblox Studio
+└──────────────────────────────────────`;
+
+    const projectsText = `
+┌──[ Projects ]
+│ No public projects in the portfolio yet...
+│ Status: [ CLASSIFIED 🔒 ]
+└──────────────────────────────────────`;
+
+    const contactText = `
+┌──[ Contact ]
+│ Discord: swaify1
+└──────────────────────────────────────`;
+
+    const helpText = `
+┌──[ Help ]
+│ Available commands:
+│ help      - Show this help message
+│ about     - About Me info
+│ projects  - Projects list
+│ contact   - Contact info
+│ clear     - Clear the terminal screen
+│ exit      - Go back to Home page
+│ nuke      - Activate system warning alert
+└──────────────────────────────────────`;
+
+    const nukeAudio = new Audio('https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg');
+
+    function appendOutput(text, className) {
+      if(className){
+        const span = document.createElement('span');
+        span.textContent = text + '\n';
+        span.className = className;
+        output.appendChild(span);
+        output.scrollTop = output.scrollHeight;
+      } else {
+        output.textContent += '\n' + text;
+        output.scrollTop = output.scrollHeight;
+      }
+    }
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const cmd = input.value.trim().toLowerCase();
+        appendOutput(`> ${cmd}`);
+
+        switch(cmd) {
+          case 'help':
+            appendOutput(helpText);
+            break;
+          case 'about':
+            appendOutput(aboutText);
+            break;
+          case 'projects':
+            appendOutput(projectsText);
+            break;
+          case 'contact':
+            appendOutput(contactText);
+            break;
+          case 'clear':
+            output.textContent = '';
+            break;
+          case 'exit':
+            goHome();
+            return;
+          case 'nuke':
+            nukeAudio.play();
+            appendOutput('WARNING: System Nuke Activated!', 'blinking');
+            break;
+          default:
+            appendOutput(`Command not found: ${cmd}`);
+        }
+        input.value = '';
+      }
+    });
+
+    function goHome() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
