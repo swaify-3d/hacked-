@@ -1,45 +1,46 @@
-async function getIP() {
+// Typing animation for each line
+function typeLine(element, text, delay = 30) {
+  return new Promise(resolve => {
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, delay);
+      } else {
+        resolve();
+      }
+    }
+    type();
+  });
+}
+
+async function showInfoAnimated() {
+  const browserEl = document.getElementById('line-browser');
+  const ipEl = document.getElementById('line-ip');
+  const osEl = document.getElementById('line-os');
+
+  await typeLine(browserEl, 'Browser: ' + navigator.userAgent);
+
   try {
-    const res = await fetch("https://api.ipify.org?format=json");
+    const res = await fetch('https://api.ipify.org?format=json');
     const data = await res.json();
-    return data.ip;
-  } catch (e) {
-    return "Unable to fetch IP";
+    await typeLine(ipEl, 'IP: ' + data.ip);
+  } catch {
+    await typeLine(ipEl, 'IP: Unavailable');
   }
-}
 
-function getDeviceInfo() {
-  return {
-    browser: navigator.userAgent,
-    os: navigator.platform,
-    resolution: `${window.screen.width}x${window.screen.height}`,
-  };
-}
+  await typeLine(osEl, 'OS: ' + navigator.platform);
 
-async function printInfo() {
-  const output = document.getElementById("output");
-  const ip = await getIP();
-  const info = getDeviceInfo();
-
-  const lines = [
-    "[+] Accessing system...",
-    `[+] IP Address: ${ip}`,
-    `[+] Operating System: ${info.os}`,
-    `[+] Browser: ${info.browser}`,
-    `[+] Screen Resolution: ${info.resolution}`,
-    "[+] Tracking enabled... Just kidding 😅",
-    "[+] Loading personal portfolio...",
-    "Press the button to continue."
-  ];
-
-  for (let line of lines) {
-    await new Promise(r => setTimeout(r, 800));
-    output.textContent += "\n" + line;
-  }
+  // Show the Enter Portfolio button after typing finishes
+  document.getElementById('enterBtn').style.display = 'inline-block';
 }
 
 function showPortfolio() {
-  window.location.href = "portfolio.html"; // You can create this page next
+  alert("Portfolio section not implemented yet."); 
+  // Replace with your portfolio code
 }
 
-printInfo();
+window.onload = () => {
+  showInfoAnimated();
+};
