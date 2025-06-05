@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hello!</title>
+  <title>hello</title>
   <link rel="stylesheet" href="style.css" />
   <script>
     // Animated title "swaify"
@@ -20,12 +20,21 @@
 </head>
 <body>
   <div class="terminal">
-    <pre id="output">Initializing...
+    <pre id="output">
+Initializing...
 Browser: <span id="browser"></span>
 IP: <span id="ip"></span>
 OS: <span id="os"></span>
-</pre>
-    <button id="enterBtn" style="display:none;" onclick="showPortfolio()">Enter Portfolio</button>
+Type "help" for commands.
+    </pre>
+    
+    <!-- Terminal command input -->
+    <form id="cmdForm" autocomplete="off">
+      <span style="color:#0f0;">></span>
+      <input id="cmdInput" type="text" autofocus style="background:#000; color:#0f0; border:none; outline:none; font-family: monospace;" />
+    </form>
+
+    <button id="enterBtn" style="display:none; margin-top:10px;" onclick="showPortfolio()">Enter Portfolio</button>
   </div>
 
   <div id="portfolio" style="display:none;">
@@ -78,10 +87,11 @@ OS: <span id="os"></span>
     }
     getIP();
 
-    // Show Enter Portfolio button after info is loaded
+    // Show Enter Portfolio button after info loads
     window.onload = () => {
       setTimeout(() => {
         document.getElementById('enterBtn').style.display = 'inline-block';
+        document.getElementById('cmdInput').focus();
       }, 2500);
     }
 
@@ -90,6 +100,62 @@ OS: <span id="os"></span>
       document.querySelector('.terminal').style.display = 'none';
       document.getElementById('portfolio').style.display = 'block';
     }
+
+    // Terminal command handling
+    const output = document.getElementById('output');
+    const cmdForm = document.getElementById('cmdForm');
+    const cmdInput = document.getElementById('cmdInput');
+
+    cmdForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const cmd = cmdInput.value.trim().toLowerCase();
+      if (!cmd) return;
+      
+      let response = '';
+
+      switch(cmd) {
+        case 'help':
+          response = `Available commands:
+help - Show this help message
+about - About me
+projects - Show projects
+contact - Contact info
+clear - Clear terminal
+enter - Enter Portfolio`;
+          break;
+        case 'about':
+          response = `I design worlds, not websites.
+I model in Blender, Cinema 4D.
+I build for Roblox Studio.
+I use Adobe Illustrator, Photoshop, After Effects, Premiere Pro, Substance Painter.
+I make 3D models, animations, and textures.`;
+          break;
+        case 'projects':
+          response = 'No projects in portfolio yet.';
+          break;
+        case 'contact':
+          response = 'Discord: swaify1\nRoblox: mrprosayf, Superloloa, swaify';
+          break;
+        case 'clear':
+          output.textContent = `Initializing...
+Browser: ${navigator.userAgent}
+IP: ${document.getElementById('ip').textContent}
+OS: ${navigator.platform}
+Type "help" for commands.
+`;
+          cmdInput.value = '';
+          return;
+        case 'enter':
+          showPortfolio();
+          return;
+        default:
+          response = `Command not found: ${cmd}. Type "help" for commands.`;
+      }
+
+      output.textContent += `\n> ${cmd}\n${response}`;
+      cmdInput.value = '';
+      output.scrollTop = output.scrollHeight;
+    });
   </script>
 </body>
 </html>
