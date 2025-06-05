@@ -2,160 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>hello</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>swaify</title>
   <link rel="stylesheet" href="style.css" />
-  <script>
-    // Animated title "swaify"
-    const title = "swaify";
-    let i = 0;
-    function animateTitle() {
-      document.title = title.substring(0, i);
-      i++;
-      if(i > title.length) i = 0;
-      setTimeout(animateTitle, 300);
-    }
-    animateTitle();
-  </script>
 </head>
 <body>
   <div class="terminal">
     <pre id="output">
 Initializing...
-Browser: <span id="browser"></span>
-IP: <span id="ip"></span>
-OS: <span id="os"></span>
+<span id="line-browser"></span>
+<span id="line-ip"></span>
+<span id="line-os"></span>
 Type "help" for commands.
     </pre>
-    
-    <!-- Terminal command input -->
-    <form id="cmdForm" autocomplete="off">
-      <span style="color:#0f0;">></span>
-      <input id="cmdInput" type="text" autofocus style="background:#000; color:#0f0; border:none; outline:none; font-family: monospace;" />
-    </form>
-
-    <button id="enterBtn" style="display:none; margin-top:10px;" onclick="showPortfolio()">Enter Portfolio</button>
+    <button id="enterBtn" onclick="showPortfolio()">Enter Portfolio</button>
   </div>
 
-  <div id="portfolio" style="display:none;">
-    <section id="about">
-      <h2>About Me</h2>
-      <p>I design worlds, not websites. From high-poly models to textured chaos, I model in Blender, Cinema 4D, and twist Adobe apps to my will. I build for Roblox Studio.</p>
-      <h3>Tools & Skills</h3>
-      <ul>
-        <li>Blender</li>
-        <li>Cinema 4D</li>
-        <li>Roblox Studio</li>
-        <li>Adobe Illustrator</li>
-        <li>Adobe Photoshop</li>
-        <li>Adobe After Effects</li>
-        <li>Adobe Premiere Pro</li>
-        <li>Adobe Substance 3D Painter</li>
-        <li>3D Modeling & Texturing</li>
-        <li>Animation (3D & Motion)</li>
-      </ul>
-    </section>
-
-    <section id="projects">
-      <h2>Projects</h2>
-      <p><em>No projects in portfolio yet.</em></p>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Hit me up on Discord or find me on Roblox.</p>
-      <ul>
-        <li><strong>Discord:</strong> swaify1</li>
-        <li><strong>Roblox:</strong> mrprosayf, Superloloa, swaify</li>
-      </ul>
-    </section>
-  </div>
-
-  <script>
-    // Fill browser, OS info and show IP via API
-    document.getElementById('browser').textContent = navigator.userAgent;
-    document.getElementById('os').textContent = navigator.platform;
-
-    async function getIP() {
-      try {
-        const res = await fetch('https://api.ipify.org?format=json');
-        const data = await res.json();
-        document.getElementById('ip').textContent = data.ip;
-      } catch {
-        document.getElementById('ip').textContent = 'Unavailable';
-      }
-    }
-    getIP();
-
-    // Show Enter Portfolio button after info loads
-    window.onload = () => {
-      setTimeout(() => {
-        document.getElementById('enterBtn').style.display = 'inline-block';
-        document.getElementById('cmdInput').focus();
-      }, 2500);
-    }
-
-    // Show portfolio section and hide terminal
-    function showPortfolio() {
-      document.querySelector('.terminal').style.display = 'none';
-      document.getElementById('portfolio').style.display = 'block';
-    }
-
-    // Terminal command handling
-    const output = document.getElementById('output');
-    const cmdForm = document.getElementById('cmdForm');
-    const cmdInput = document.getElementById('cmdInput');
-
-    cmdForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const cmd = cmdInput.value.trim().toLowerCase();
-      if (!cmd) return;
-      
-      let response = '';
-
-      switch(cmd) {
-        case 'help':
-          response = `Available commands:
-help - Show this help message
-about - About me
-projects - Show projects
-contact - Contact info
-clear - Clear terminal
-enter - Enter Portfolio`;
-          break;
-        case 'about':
-          response = `I design worlds, not websites.
-I model in Blender, Cinema 4D.
-I build for Roblox Studio.
-I use Adobe Illustrator, Photoshop, After Effects, Premiere Pro, Substance Painter.
-I make 3D models, animations, and textures.`;
-          break;
-        case 'projects':
-          response = 'No projects in portfolio yet.';
-          break;
-        case 'contact':
-          response = 'Discord: swaify1\nRoblox: mrprosayf, Superloloa, swaify';
-          break;
-        case 'clear':
-          output.textContent = `Initializing...
-Browser: ${navigator.userAgent}
-IP: ${document.getElementById('ip').textContent}
-OS: ${navigator.platform}
-Type "help" for commands.
-`;
-          cmdInput.value = '';
-          return;
-        case 'enter':
-          showPortfolio();
-          return;
-        default:
-          response = `Command not found: ${cmd}. Type "help" for commands.`;
-      }
-
-      output.textContent += `\n> ${cmd}\n${response}`;
-      cmdInput.value = '';
-      output.scrollTop = output.scrollHeight;
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
