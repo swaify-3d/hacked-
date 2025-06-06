@@ -14,20 +14,23 @@ const infoLines = [
 ];
 
 function getIP() {
-  // We can't get IP directly in client JS without a service, so show fake or placeholder
+  // Placeholder IP address; replace with real API if needed
   return '192.168.1.1';
 }
 
 let currentLine = 0;
 
 function showInfo() {
+  if (currentLine === 0) {
+    output.textContent = 'Initializing...'; // reset output on first run
+  }
+
   if (currentLine < infoLines.length) {
     output.textContent += '\n' + infoLines[currentLine];
     currentLine++;
     setTimeout(showInfo, 1000);
   } else {
     output.textContent += '\n\nInitialization complete.\nReady.';
-    // Pop the Enter Portfolio button after info done
     enterPortfolioBtn.style.display = 'inline-block';
   }
 }
@@ -36,10 +39,8 @@ function showInfo() {
 enterPortfolioBtn.style.display = 'none';
 
 // Start the info display
-output.textContent = 'Initializing...';
-setTimeout(showInfo, 1000);
+showInfo();
 
-// Button click handlers for switching views
 enterPortfolioBtn.addEventListener('click', () => {
   terminalDiv.style.display = 'none';
   portfolioDiv.style.display = 'block';
