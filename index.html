@@ -3,31 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>swaify</title>
+  <title>swaify — Terminal</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Initial Terminal View -->
-  <div class="terminal" id="mainTerminal">
-    <pre id="output">
-Initializing...
-<span id="line-browser"></span>
-<span id="line-ip"></span>
-<span id="line-os"></span>
-    </pre>
-    <button id="enterBtn" onclick="showPortfolio()">Enter Portfolio</button>
+  <div class="terminal">
+    <pre id="output"></pre>
+    <div class="input-line" style="display:none;">
+      <span class="prompt">&gt;</span>
+      <input type="text" id="commandInput" autofocus autocomplete="off" />
+    </div>
   </div>
-
-  <!-- Portfolio Terminal View (Initially Hidden) -->
-  <div class="terminal" id="portfolioTerminal" style="display: none;">
-    <pre>
-swaify's Portfolio
--------------------
-No projects yet.
-    </pre>
-    <button onclick="goBack()">Back</button>
-  </div>
-
   <script src="script.js"></script>
 </body>
 </html>
