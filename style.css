@@ -1,63 +1,56 @@
 body {
-  background: #000;
+  background-color: #000;
   color: #0f0;
   font-family: 'Courier New', Courier, monospace;
-  margin: 0; padding: 20px;
-  height: 100vh;
-  overflow: hidden;
+  margin: 0;
+  padding: 20px;
+  overflow-x: hidden;
 }
 
-.terminal, #portfolio {
+.terminal {
+  background-color: #111;
+  border: 2px solid #0f0;
+  padding: 20px;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 40px auto;
+  box-shadow: 0 0 15px #0f0;
+  border-radius: 8px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-pre {
-  white-space: pre-wrap;
-  word-break: break-word;
-  background: #111;
-  padding: 15px;
-  border-radius: 5px;
-  min-height: 200px;
-}
-
-#commandInput {
-  width: 100%;
-  padding: 10px;
-  background: #000;
-  border: 1px solid #0f0;
+#output {
+  background-color: #000;
+  border: none;
   color: #0f0;
-  font-family: monospace;
-  margin-top: 10px;
-  box-sizing: border-box;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  flex-grow: 1;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: inset 0 0 10px #0f0;
 }
 
 button {
-  background: #0f0;
-  border: none;
+  background: transparent;
+  border: 2px solid #0f0;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
   padding: 10px 20px;
-  font-weight: bold;
-  margin-top: 10px;
+  border-radius: 4px;
   cursor: pointer;
-  color: #000;
-  font-family: monospace;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+  display: none; /* hidden until info loads */
+  align-self: flex-start;
 }
 
 button:hover {
-  background: #0c0;
-}
-
-h1, h2 {
-  font-family: monospace;
-  color: #0f0;
-}
-
-#portfolio p, #portfolio ul {
-  font-family: monospace;
-  color: #0f0;
-}
-
-#portfolio ul {
-  list-style-type: none;
-  padding-left: 0;
+  background-color: #0f0;
+  color: #000;
 }
