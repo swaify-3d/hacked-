@@ -3,20 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hacked? 🤖</title>
+  <title>swaify</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="terminal" id="terminal">
-    <pre id="output">Initializing...</pre>
-    <button id="enterPortfolioBtn" style="display:none;">Enter Portfolio</button>
-  </div>
-
-  <div id="portfolio" style="display:none;">
-    <!-- Portfolio content will go here -->
-    <h1>Portfolio</h1>
-    <p>No projects in portfolio yet.</p>
-    <button id="backBtn">Back to Terminal</button>
+  <div class="terminal">
+    <pre id="output">
+Initializing...
+<span id="line-browser"></span>
+<span id="line-ip"></span>
+<span id="line-os"></span>
+    </pre>
+    <button id="enterBtn" onclick="showPortfolio()">Enter Portfolio</button>
   </div>
 
   <script src="script.js"></script>
