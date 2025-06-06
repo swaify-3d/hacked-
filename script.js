@@ -21,6 +21,8 @@ function getIP() {
 let currentLine = 0;
 
 function showInfo() {
+  console.log("showInfo called, currentLine:", currentLine); // debug log
+
   if (currentLine === 0) {
     output.textContent = 'Initializing...'; // reset output on first run
   }
