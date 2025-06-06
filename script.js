@@ -1,4 +1,3 @@
-// Typing animation for each line
 function typeLine(element, text, delay = 30) {
   return new Promise(resolve => {
     let i = 0;
@@ -21,7 +20,7 @@ async function showInfoAnimated() {
   const osEl = document.getElementById('line-os');
 
   await typeLine(browserEl, 'Browser: ' + navigator.userAgent);
-
+  
   try {
     const res = await fetch('https://api.ipify.org?format=json');
     const data = await res.json();
@@ -31,14 +30,17 @@ async function showInfoAnimated() {
   }
 
   await typeLine(osEl, 'OS: ' + navigator.platform);
-
-  // Show the Enter Portfolio button after typing finishes
   document.getElementById('enterBtn').style.display = 'inline-block';
 }
 
 function showPortfolio() {
-  alert("Portfolio section not implemented yet."); 
-  // Replace with your portfolio code
+  document.getElementById('mainTerminal').style.display = 'none';
+  document.getElementById('portfolioTerminal').style.display = 'flex';
+}
+
+function goBack() {
+  document.getElementById('portfolioTerminal').style.display = 'none';
+  document.getElementById('mainTerminal').style.display = 'flex';
 }
 
 window.onload = () => {
